@@ -225,7 +225,7 @@ Consulta el archivo <a href="LICENSE">LICENSE</a> para más información.
 
 <p align="center">
   <br>
-  <img src="./assets/Ucontinental-logotipo.png" alt="footer" width="120"><br>
+  <img src="./assets/logos/Ucontinental-logotipo.png" alt="footer" width="120"><br>
   <sub>© 2025 ABB Mitológico - Proyecto Universitario de Estructura de Datos</sub>
 </p>
 
