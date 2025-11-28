@@ -1,4 +1,4 @@
-# **1. DESCRIPCIÓN TÉCNICA DETALLADA (EN MARKDOWN, POR SECCIONES)**
+# **1. DESCRIPCIÓN TÉCNICA DETALLADA 
 
 ## **🔹 Manejo de entradas y validaciones**
 
