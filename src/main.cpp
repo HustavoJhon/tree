@@ -3,9 +3,7 @@
 #include <string>
 using namespace std;
 
-// =============================================
-// Convierte una cadena NUMERICA a entero (sin atoi)
-// =============================================
+// Convierte una cadena NUMERICA a entero
 int convertirEntero(const string &txt) {
   int n = 0;
   for (int i = 0; i < (int)txt.length(); i++) {
@@ -14,9 +12,7 @@ int convertirEntero(const string &txt) {
   return n;
 }
 
-// =============================================
 // Verifica si un texto contiene SOLO digitos
-// =============================================
 bool esNumero(const string &txt) {
   if (txt.length() == 0)
     return false;
@@ -27,28 +23,21 @@ bool esNumero(const string &txt) {
   return true;
 }
 
-// =============================================
-// Convierte un caracter a minuscula (sin tolower)
-// =============================================
+// Convierte un caracter a minuscula
 char aMinuscula(char c) {
   if (c >= 'A' && c <= 'Z')
     return c + 32;
   return c;
 }
 
-// =============================================
-// Convierte un caracter a mayuscula (sin toupper)
-// =============================================
+// Convierte un caracter a mayuscula
 char aMayuscula(char c) {
   if (c >= 'a' && c <= 'z')
     return c - 32;
   return c;
 }
 
-// =============================================
 // Capitaliza la primera letra de cada palabra
-// Ejemplo: "zeus rey" -> "Zeus Rey"
-// =============================================
 string capitalizar(const string &txt) {
   string resultado = "";
   bool nuevaPalabra = true;
@@ -70,9 +59,7 @@ string capitalizar(const string &txt) {
   return resultado;
 }
 
-// =============================================
 // Elimina espacios al inicio y final de cadena
-// =============================================
 string trim(const string &txt) {
   if (txt.length() == 0)
     return "";
@@ -95,14 +82,10 @@ string trim(const string &txt) {
   return txt.substr(inicio, fin - inicio + 1);
 }
 
-// =============================================
 // Verifica si una cadena esta vacia o solo espacios
-// =============================================
 bool esVacia(const string &txt) { return trim(txt).length() == 0; }
 
-// =============================================
 // Verifica si el año es bisiesto
-// =============================================
 bool esBisiesto(int anio) {
   if (anio % 4 != 0)
     return false;
@@ -113,9 +96,7 @@ bool esBisiesto(int anio) {
   return false;
 }
 
-// =============================================
 // Valida que el mes tenga dias correctos
-// =============================================
 bool mesValido(int mes, int anio) {
   if (mes < 1 || mes > 12)
     return false;
@@ -165,133 +146,127 @@ bool leerAnio(int &anio);
 bool leerMes(int &mes, int anio);
 bool leerTextoNoVacio(const string &msg, string &texto);
 
-// =============================================
 // INSERTAR (con validacion de duplicados)
-// =============================================
 Nodo *insertar(Nodo *raiz, int anio, int mes, const string &nombre,
                const string &rol) {
-  int clave = anio * 100 + mes;
+  int clave = anio * 100 + mes; // creacion de la clave unica
 
-  if (raiz == NULL) {
+  if (raiz == NULL) { // si el arbol esta vacio, colocamos el nuevo nodo aqui
     return new Nodo(anio, mes, nombre, rol);
   }
 
-  if (clave < raiz->clave)
+  if (clave < raiz->clave) // si la clave es menor, el nuevo miembro debe ir al
+                           // lado izquierdo (fechas mas antihuas)
     raiz->izq = insertar(raiz->izq, anio, mes, nombre, rol);
-  else if (clave > raiz->clave)
+  else if (clave >
+           raiz->clave) // si es mayot va al lado derecho (fechas recientes)
     raiz->der = insertar(raiz->der, anio, mes, nombre, rol);
-  else {
+  else { // si la clave ya existe, significa que la fecha ya esta registrada y
+         // no inserta nada
     cout << "\n*** AVISO: Ya existe un miembro con fecha " << anio << "-" << mes
          << " ***\n";
     cout << "Miembro existente: " << raiz->nombre << " (" << raiz->rol << ")\n";
   }
 
-  return raiz;
+  return raiz; // retorno la raiza del arbol que se mantiene intacta
 }
 
-// =============================================
 // BUSCAR
-// =============================================
 Nodo *buscarExacto(Nodo *raiz, int anio, int mes) {
-  int clave = anio * 100 + mes;
+  int clave = anio * 100 + mes; // generar la calve unica
 
-  if (raiz == NULL)
+  if (raiz == NULL) // si llegamos a un punto donde no hay nodo(no se encontro)
     return NULL;
-  if (clave == raiz->clave)
+  if (clave == raiz->clave) // si coincide, se encontro el nodo buscado
     return raiz;
 
-  if (clave < raiz->clave)
+  if (clave < raiz->clave) // si la clave es menor, buscamos por la izquierda
+                           // (fechas antiguas)
     return buscarExacto(raiz->izq, anio, mes);
-  else
+  else // si la clave es mayor buscamos por la derecha (fechas recientes)
     return buscarExacto(raiz->der, anio, mes);
 }
 
-// =============================================
 // MINIMO
-// =============================================
 Nodo *minimo(Nodo *n) {
   while (n != NULL && n->izq != NULL)
     n = n->izq;
   return n;
 }
 
-// =============================================
 // ELIMINAR
-// =============================================
 Nodo *eliminarMiembro(Nodo *raiz, int anio, int mes) {
-  if (raiz == NULL) {
+  if (raiz == NULL) { // si llegamos a un nodo vacio
     cout << "\n*** El miembro no existe en el arbol ***\n";
     return raiz;
   }
 
-  int clave = anio * 100 + mes;
+  int clave = anio * 100 + mes; // generamos la clave unica
 
-  if (clave < raiz->clave) {
+  if (clave <
+      raiz->clave) { // si la clave es menor seguimos buscando por la izquierda
     raiz->izq = eliminarMiembro(raiz->izq, anio, mes);
-  } else if (clave > raiz->clave) {
+  } else if (clave > raiz->clave) { // si es mayor buscamos por la derecha
     raiz->der = eliminarMiembro(raiz->der, anio, mes);
   } else {
     // Nodo encontrado
     cout << "\n*** Eliminando: " << raiz->nombre << " ***\n";
 
-    if (raiz->izq == NULL) {
-      Nodo *temp = raiz->der;
-      delete raiz;
-      return temp;
-    } else if (raiz->der == NULL) {
-      Nodo *temp = raiz->izq;
-      delete raiz;
-      return temp;
+    if (raiz->izq == NULL) {        // solo tiene hijos derecho
+      Nodo *temp = raiz->der;       // guardar el hijo derecho
+      delete raiz;                  // borrar el nodo actual
+      return temp;                  // conectarmos el subarbol derecho
+    } else if (raiz->der == NULL) { // caso 2 solo tiene hijos izquierdo
+      Nodo *temp = raiz->izq;       // guardamos el hijo izquierdo
+      delete raiz;                  // eliminamos el actual
+      return temp;                  // conectamos el subarbol izquierdo
     }
 
     // Nodo con dos hijos: obtener sucesor inorden
+    // el sucesor inorden es el nodo mas peque del subarbol derecho
     Nodo *suc = minimo(raiz->der);
-
+    // copiamos los datos del sucesor al nodo actual
     raiz->anio = suc->anio;
     raiz->mes = suc->mes;
     raiz->clave = suc->clave;
     raiz->nombre = suc->nombre;
     raiz->rol = suc->rol;
-
+    // eliminamos el sucesor real del subarbol derecho
     raiz->der = eliminarMiembro(raiz->der, suc->anio, suc->mes);
   }
 
   return raiz;
 }
 
-// =============================================
 // RECORRIDOS
-// =============================================
 void inorden(Nodo *r) {
   if (r) {
-    inorden(r->izq);
-    cout << r->nombre << " (" << r->anio << "-" << r->mes << ") - " << r->rol
+    inorden(r->izq);// primero recorremos el lado izquierdo (los valores menores)
+    cout << r->nombre << " (" << r->anio << "-" << r->mes << ") - " << r->rol //mostramos el nodo actual
          << endl;
-    inorden(r->der);
+    inorden(r->der);//recorremos el lado derecho (los valores mayores)
   }
 }
 
 void preorden(Nodo *r) {
-  if (r) {
+  if (r) {// mostrar el nodo actual
     cout << r->nombre << " (" << r->anio << "-" << r->mes << ") - " << r->rol
          << endl;
-    preorden(r->izq);
-    preorden(r->der);
+    preorden(r->izq);//recorrer el subarbol izquierdo
+    preorden(r->der);//recorrer el subarbol derecho
   }
 }
 
 void postorden(Nodo *r) {
   if (r) {
-    postorden(r->izq);
-    postorden(r->der);
-    cout << r->nombre << " (" << r->anio << "-" << r->mes << ") - " << r->rol
+    postorden(r->izq);// primero recorremos el lado izquierdo
+    postorden(r->der);// luego el lado derecho
+    cout << r->nombre << " (" << r->anio << "-" << r->mes << ") - " << r->rol // imprimir el nodo actaul
          << endl;
   }
 }
 
-// =============================================
-// ASCII TREE (sin Unicode)
-// =============================================
+// ASCII TREE
 void imprimirArbolAscii(Nodo *r, string pref, bool esUltimo) {
   if (r == NULL)
     return;
@@ -317,9 +292,7 @@ void imprimirArbolAscii(Nodo *r, string pref, bool esUltimo) {
   }
 }
 
-// =============================================
 // LECTURA VALIDADA DE ENTEROS CON RANGO
-// =============================================
 bool leerIntRango(const string &msg, int &valor, int minVal, int maxVal) {
   string cadena;
 
@@ -344,9 +317,7 @@ bool leerIntRango(const string &msg, int &valor, int minVal, int maxVal) {
   }
 }
 
-// =============================================
 // LECTURA VALIDADA DE AÑO
-// =============================================
 bool leerAnio(int &anio) {
   string cadena;
 
@@ -370,9 +341,7 @@ bool leerAnio(int &anio) {
   }
 }
 
-// =============================================
 // LECTURA VALIDADA DE MES
-// =============================================
 bool leerMes(int &mes, int anio) {
   string cadena;
 
@@ -396,9 +365,7 @@ bool leerMes(int &mes, int anio) {
   }
 }
 
-// =============================================
 // LECTURA VALIDADA DE TEXTO NO VACIO
-// =============================================
 bool leerTextoNoVacio(const string &msg, string &texto) {
   while (true) {
     cout << msg;
@@ -415,9 +382,7 @@ bool leerTextoNoVacio(const string &msg, string &texto) {
   }
 }
 
-// =============================================
 // CARGAR MITOLOGIA
-// =============================================
 Nodo *cargarMitologia(Nodo *r) {
   r = insertar(r, 10, 6, "zeus", "rey olimpico");
 
@@ -440,9 +405,7 @@ Nodo *cargarMitologia(Nodo *r) {
   return r;
 }
 
-// =============================================
 // PROGRAMA PRINCIPAL
-// =============================================
 int main() {
   // Habilitar caracteres en español (ñ, á, é, etc.)
   setlocale(LC_ALL, "spanish");
@@ -569,9 +532,7 @@ int main() {
 
   } while (opcion != 0);
 
-  cout << "\n======================================\n";
   cout << "   Gracias por usar el programa\n";
-  cout << "======================================\n";
 
   return 0;
 }
