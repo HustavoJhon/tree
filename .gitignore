@@ -1,7 +1,7 @@
 #Obsidian
 .obsidian/
 .obsidian/workspace.json
-
+.obsidian/workspace.json
 
 # Prerequisites
 *.d
@@ -44,3 +44,4 @@
 
 # debug information files
 *.dwo
+
