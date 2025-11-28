@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "test/README.md",
+                "file": "docs/notes/code.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "README"
+              "title": "code"
             }
           }
         ]
@@ -78,8 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "f0e557fd19b6c8e6",
@@ -188,16 +187,23 @@
   },
   "active": "3579f6477c958333",
   "lastOpenFiles": [
+    "src/main.cpp~",
+    "docs/notes/operacionFundamentales.md",
+    "docs/notes/Recorridos.md",
+    "docs/notes/code.md",
+    "docs/tasks/trello.md",
+    "src/main.cpp",
+    "src/mejora.cpp",
+    "test/main.cpp",
+    "src/mejora",
+    "docs/notes/description.md~",
+    "docs/tasks/Untitled.md",
+    "test/README.md",
+    "docs/pdf/Prototipado.pdf",
+    "docs/pdf/Validacion.pdf",
     "test/prototipo.cpp~",
     "test/README.md~",
     "test/main",
-    "test/README.md",
-    "test/prototipo.cpp",
-    "test",
-    "src/main",
-    "src/main.cpp",
-    "src/tree.cpp",
-    "docs/pdf/README.md~",
     "README.md"
   ]
 }
